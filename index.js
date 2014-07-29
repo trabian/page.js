@@ -374,8 +374,16 @@
     // x-origin
     if (!sameOrigin(el.href)) return;
 
+    var pathname = el.pathname;
+
+    // Normalize IE, which doesn't include the forward slash at the
+    // beginning.
+    if (! pathname.match(/^\//)) {
+       pathname = '/' + pathname;
+    }
+
     // rebuild path
-    var path = el.pathname + el.search + (el.hash || '');
+    var path = pathname + el.search + (el.hash || '');    
 
     // same page
     var orig = path + el.hash;
