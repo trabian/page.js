@@ -406,6 +406,11 @@
 
     var pathname = el.pathname;
 
+    // Check for two slashes at the beginning, which happens with IE 10+
+    if (pathname.match(/^\/\//)) {
+      pathname = pathname.slice(1);
+    }
+
     // Normalize IE, which doesn't include the forward slash at the
     // beginning.
     if (! pathname.match(/^\//)) {
@@ -413,7 +418,7 @@
     }
 
     // rebuild path
-    var path = pathname + el.search + (el.hash || '');    
+    var path = pathname + el.search + (el.hash || '');
 
     // same page
     var orig = path + el.hash;
